@@ -7,11 +7,12 @@ public class ATMcajero {
     public static void main(String[] args) {
 
         Scanner entrada = new Scanner(System.in);
-
         int opcion;
         int saldoInicial = 10000;
         int deposito;
         int retiro;
+        int contadordeposito = 0;
+        int contadorretiro = 0;
 
         int saldo;
         do {
@@ -22,7 +23,8 @@ public class ATMcajero {
 
             System.out.println("    1. DEPOSITO");
             System.out.println("    2. RETIRO");
-            System.out.println("    3. SALIR");
+            System.out.println("    3. HISTORIAL");
+            System.out.println("    4. SALIR");
 
             opcion = entrada.nextInt();
             switch (opcion) {
@@ -32,54 +34,41 @@ public class ATMcajero {
                     System.out.println("Indique la cantidad a depositar");
                     deposito = entrada.nextInt();
                     saldo = saldoInicial + deposito;
-                    System.out.println("Su saldo inicial es:" + saldoInicial);
-                    System.out.println("Su deposito es:" + deposito);
-                    System.out.println("Su saldo total es:" + saldo);
+                    contadordeposito++;
+                    System.out.println("Su saldo inicial es: Lps" + saldoInicial);
+                    System.out.println("Su deposito es: Lps" + deposito);
+                    System.out.println("Su saldo total es: Lps" + saldo);
                     break;
 
                 case 2:
                     System.out.println("Indique la cantidad que desea retirar");
                     retiro = entrada.nextInt();
                     saldo = saldoInicial - retiro;
+                    contadorretiro++;
 
                     if (retiro > saldoInicial) {
-                        System.out.println("su saldo es insuficiente para realizar este retiro");
+                        System.out.println("su saldo es insuficiente para realizar este retiro, no debe exceder los Lps10000");
                     } else {
                         saldo = saldoInicial - retiro;
                         System.out.println("Su saldo restante es: Lps" + saldo);
                         System.out.println("Su saldo retirado es: Lps" + retiro);
                     }
                     break;
+
                 case 3:
+                    System.out.println("----------------------------------------");
+                    System.out.println("Su historial es el siguiente:");
+                    System.out.println("Ha recargado: " + contadordeposito + " veces");
+                    System.out.println("Ha retirado: " + contadorretiro + " veces");
+
+                case 4:
                     break;
                 default:
                     System.out.println("Opcion incorrecta, ingrese opcion nuevamente");
             }
-        } while (opcion < 3);
+        } while (opcion < 4);
         System.out.println("SESION FINALIZADA");
         System.out.println("GRACIAS POR USAR NUESTROS SERVICIOS");
-
-        int dineroSolicitado = 0;
-        final int BILLETES[] = {500, 200, 100, 50, 20, 10, 5, 2, 1};
-        int billetesEntregados[] = new int[BILLETES.length];
-        int dineroEntregado = 0, dineroRestante = 0;
-
-        System.out.println("Ingrese la cantidad de dinero que necesita retirar: ");
-        dineroSolicitado = entrada.nextInt();
-
-        dineroRestante = dineroSolicitado;
-        for (int x = 0; x < BILLETES.length; x++) {
-            if (dineroRestante >= BILLETES[x]) {
-                billetesEntregados[x] = dineroRestante / BILLETES[x];  //Conocer cuantos billetes entrego de esta denominacion
-                dineroEntregado = billetesEntregados[x] * BILLETES[x];  //Dinero entregando con estos billetes
-                dineroRestante -= dineroEntregado;                    //Restar esa cifra para saber cuanto me falta pagar
-            } else {
-                billetesEntregados[x] = 0;
-            }
-            System.out.println("Billetes de " + BILLETES[x] + " entregados: " + billetesEntregados[x] + " DINERO Entregado: " + dineroEntregado + " DINERO Restante: " + dineroRestante);
-            dineroEntregado = 0;
-
-        }
 
     }
 }
